@@ -40,7 +40,8 @@ readImageFromUSB.launch 不会订阅图像，即只把图像publish出来，没�
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ####ORB_SLAM   :~/catkin_ws/src/ORB_SLAM  笔记本电脑也要保持这样的目录结构
-  
+    
+
 ORB_SLAM的第一步要配置路径：
  export PATH_TO_PARENT_OF_ORB_SLAM=/home/liwb/catkin_ws/src/
 export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$PATH_TO_PARENT_OF_ORB_SLAM

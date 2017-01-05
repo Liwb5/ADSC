@@ -247,9 +247,9 @@ void Tracking::GrabImage(const sensor_msgs::ImageConstPtr& msg)
         }
         else
         {
-            //bOK = Relocalisation();
-		Reset();
-                return;
+            bOK = Relocalisation();
+		//Reset();
+            //    return;
             //mState=NOT_INITIALIZED;
         }
 

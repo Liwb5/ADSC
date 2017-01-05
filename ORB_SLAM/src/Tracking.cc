@@ -162,7 +162,7 @@ void Tracking::Run()
 {
     ros::NodeHandle nodeHandler;
     ros::Subscriber sub = nodeHandler.subscribe("/usb_cam/image_raw", 1, &Tracking::GrabImage, this);
-    //mIMUSub->Run();
+    mIMUSub->Run();
     //ros::MultiThreadedSpinner spinner(4);//use 4 threads
     ros::spin();
 }

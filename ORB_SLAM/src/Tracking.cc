@@ -41,9 +41,9 @@ namespace ORB_SLAM
 {
 
 
-Tracking::Tracking(ORBVocabulary* pVoc, FramePublisher *pFramePublisher, MapPublisher *pMapPublisher, Map *pMap, string strSettingPath):
+Tracking::Tracking(ORBVocabulary* pVoc, FramePublisher *pFramePublisher, MapPublisher *pMapPublisher, Map *pMap, string strSettingPath, imuSubscriber* pIMUSub):
     mState(NO_IMAGES_YET), mpORBVocabulary(pVoc), mpFramePublisher(pFramePublisher), mpMapPublisher(pMapPublisher), mpMap(pMap),
-    mnLastRelocFrameId(0), mbPublisherStopped(false), mbReseting(false), mbForceRelocalisation(false), mbMotionModel(false)
+    mnLastRelocFrameId(0), mbPublisherStopped(false), mbReseting(false), mbForceRelocalisation(false), mbMotionModel(false),mIMUSub(pIMUSub)
 {
 //******************edit by liwb **************************************//
 	outfile.open("/home/liwb/Documents/output/R_and_T.txt",ios::binary);//记录rotation and translation
@@ -162,7 +162,8 @@ void Tracking::Run()
 {
     ros::NodeHandle nodeHandler;
     ros::Subscriber sub = nodeHandler.subscribe("/usb_cam/image_raw", 1, &Tracking::GrabImage, this);
-
+    //mIMUSub->Run();
+    //ros::MultiThreadedSpinner spinner(4);//use 4 threads
     ros::spin();
 }
 

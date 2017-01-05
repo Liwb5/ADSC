@@ -12,7 +12,8 @@ namespace ORB_SLAM
     void imuSubscriber::Run()
     {
         mIMUDataSub = mNH.subscribe("/imuData",100,&imuSubscriber::GrabIMUData,this);
-        ros::spin();
+        //ros::MultiThreadedSpinner spinner(4);//use 4 threads
+        //spinner.spin();
     }
 
     // as callback function, to recieve data from topic /imuData and save imuData in vector mvIMUData

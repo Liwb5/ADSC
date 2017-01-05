@@ -36,6 +36,7 @@
 #include"ORBextractor.h"
 #include "Initializer.h"
 #include "MapPublisher.h"
+#include "imuSubscriber.h"
 
 #include<tf/transform_broadcaster.h>
 
@@ -43,7 +44,7 @@
 #include <sstream>
 #include <fstream>
 #include <iostream>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <stdio.h>
 using namespace std;
 //******************edit by liwb **************************************//
@@ -55,12 +56,13 @@ class FramePublisher;
 class Map;
 class LocalMapping;
 class LoopClosing;
+class imuSubscriber;
 
 class Tracking
-{  
+{
 
 public:
-    Tracking(ORBVocabulary* pVoc, FramePublisher* pFramePublisher, MapPublisher* pMapPublisher, Map* pMap, string strSettingPath);
+    Tracking(ORBVocabulary* pVoc, FramePublisher* pFramePublisher, MapPublisher* pMapPublisher, Map* pMap, string strSettingPath, imuSubscriber* pIMUSub);
 
     enum eTrackingState{
         SYSTEM_NOT_READY=-1,
@@ -86,7 +88,7 @@ public:
 	ofstream outfile;
 //******************edit by liwb **************************************//
     eTrackingState mState;
-    eTrackingState mLastProcessedState;    
+    eTrackingState mLastProcessedState;
 
     // Current Frame
     Frame mCurrentFrame;
@@ -115,7 +117,7 @@ protected:
     bool TrackWithMotionModel();
 
     bool RelocalisationRequested();
-    bool Relocalisation();    
+    bool Relocalisation();
 
     void UpdateReference();
     void UpdateReferencePoints();
@@ -193,6 +195,9 @@ protected:
 
     // Transfor broadcaster (for visualization in rviz)
     tf::TransformBroadcaster mTfBr;
+
+    //subscribe imu data from topic /imuData
+    imuSubscriber* mIMUSub;
 };
 
 } //namespace ORB_SLAM

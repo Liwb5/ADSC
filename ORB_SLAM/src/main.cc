@@ -34,7 +34,7 @@
 #include "LoopClosing.h"
 #include "KeyFrameDatabase.h"
 #include "ORBVocabulary.h"
-
+#include "imuSubscriber.h"
 
 #include "Converter.h"
 
@@ -118,8 +118,12 @@ int main(int argc, char **argv)
     //Create Map Publisher for Rviz
     ORB_SLAM::MapPublisher MapPub(&World);
 
+    //Initialize the imuSubscriber Thread and launch
+    ORB_SLAM::imuSubscriber imuSub;
+    //boost::thread imuSubscribeThread(&ORB_SLAM::imuSubscriber::Run, &imuSub);
+
     //Initialize the Tracking Thread and launch
-    ORB_SLAM::Tracking Tracker(&Vocabulary, &FramePub, &MapPub, &World, strSettingsFile);
+    ORB_SLAM::Tracking Tracker(&Vocabulary, &FramePub, &MapPub, &World, strSettingsFile,&imuSub);
     boost::thread trackingThread(&ORB_SLAM::Tracking::Run,&Tracker);
 
     Tracker.SetKeyFrameDatabase(&Database);
@@ -131,6 +135,7 @@ int main(int argc, char **argv)
     //Initialize the Loop Closing Thread and launch
     ORB_SLAM::LoopClosing LoopCloser(&World, &Database, &Vocabulary);
     boost::thread loopClosingThread(&ORB_SLAM::LoopClosing::Run, &LoopCloser);
+
 
     //Set pointers between threads
     Tracker.SetLocalMapper(&LocalMapper);

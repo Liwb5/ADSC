@@ -224,11 +224,12 @@ void Tracking::GrabImage(const sensor_msgs::ImageConstPtr& msg)
     else if(mState==LOST)
     {
         FirstReInitialization();
-
+		cout<<"FirstReInitialization();"<<endl;
     }
     else if(mState==REINITIALIZING)
 	{
 		ReInitialize();
+		cout<<"ReInitialize();"<<endl;
 		//return;
 	}
     else

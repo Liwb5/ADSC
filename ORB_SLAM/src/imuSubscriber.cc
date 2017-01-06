@@ -39,7 +39,7 @@ namespace ORB_SLAM
         if((mvIMUData.size()+3)%7 == 0)
         {
             cout<<mvIMUData.size()<<endl;
-            cout<<mvIMUData[mvIMUData.size()-1].timeStamp<<" "<<mvIMUData[mvIMUData.size()-1].Quat.z<< endl;
+            cout<<mvIMUData[mvIMUData.size()-1].timeStamp<<" "<<mvIMUData[mvIMUData.size()-1].Quat.z<< <<" "<<mvIMUData.capacity()<<endl;
         }
     }
 

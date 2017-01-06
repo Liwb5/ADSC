@@ -18,6 +18,7 @@
 * along with ORB-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
+//just a test for git
 #include "Tracking.h"
 #include<ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
@@ -162,6 +163,8 @@ void Tracking::Run()
 {
     ros::NodeHandle nodeHandler;
     ros::Subscriber sub = nodeHandler.subscribe("/usb_cam/image_raw", 1, &Tracking::GrabImage, this);
+    mIMUSub->Run();
+    //ros::MultiThreadedSpinner spinner(4);//use 4 threads
 
     ros::spin();
 }
@@ -221,13 +224,13 @@ void Tracking::GrabImage(const sensor_msgs::ImageConstPtr& msg)
     }
     else if(mState==LOST)
     {
-        FirstInitialization();
-		cout<<"FirstReInitialization();"<<endl;
+        FirstReInitialization();
+
     }
     else if(mState==REINITIALIZING)
 	{
 		ReInitialize();
-		cout<<"ReInitialize();"<<endl;
+		//return;
 	}
     else
     {
@@ -249,6 +252,7 @@ void Tracking::GrabImage(const sensor_msgs::ImageConstPtr& msg)
         else
         {
             bOK = Relocalisation();
+
         }
 
         // If we have an initial estimation of the camera pose and matching. Track the local map.
@@ -286,7 +290,6 @@ void Tracking::GrabImage(const sensor_msgs::ImageConstPtr& msg)
             {
                 Reset();
                 return;
-				;
             }
         }
 
@@ -1172,8 +1175,7 @@ void Tracking::ReInitialize()
         }
 
         CreateInitialMap(Rcw,tcw);
-        //mState = WORKING;
-		cout<<"CreateInitialMap(Rcw,tcw);"<<endl;
+
     }
 
 }

@@ -7,7 +7,7 @@ namespace ORB_SLAM
 {
     imuSubscriber::imuSubscriber()
     {
-
+        mvIMUData.reserve(600000);
     }
     void imuSubscriber::Run()
     {

@@ -37,7 +37,7 @@ namespace ORB_SLAM
         void GrabIMUData(const ORB_SLAM::imuData &msg);
         void test();
 
-        std::vector<IMU_Data> mvIMUData.reserve(600000);
+        std::vector<IMU_Data> mvIMUData;
 
     protected:
         IMU_Data mIMUData;

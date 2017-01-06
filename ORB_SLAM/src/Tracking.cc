@@ -18,7 +18,6 @@
 * along with ORB-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-//just a test for git
 #include "Tracking.h"
 #include<ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
